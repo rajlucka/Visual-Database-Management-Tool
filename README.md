@@ -1,2 +1,2 @@
-# OCR
+# VDMT
 My OCR Project
