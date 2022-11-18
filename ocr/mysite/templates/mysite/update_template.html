@@ -1,0 +1,24 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td><input type="text" name='template_name' placeholder="Template Name" autocomplete="off" value="{{template_details.1}}"
+                class="form-control"/></td>
+        </tr>
+        <tr>
+            <td><input type="text" name='template_description' placeholder="Template Description" autocomplete="off" value="{{template_details.2}}"
+                class="form-control"/></td>
+        </tr>
+        <tr>
+            <td>
+              <input type="submit" id="btnsubmit" value="Submit" class="btn btn-success"/>
+              <a href="{% url 'template' %}" class="btn btn-info">Back</a>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{% endblock content %}

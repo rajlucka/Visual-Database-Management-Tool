@@ -1,0 +1,43 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+<h2 style="color: #eaeaea; background-color: #00adee;" class="text-center alert">Dashboard</h2>  
+<div class="row">
+    <div class=" col-sm-6">
+        <h2 style="color: #ffffff; background-color: #ffffff;" class="alert text-center"><a href="{% url 'project' %}">Projects</a></h2>
+        <table class="table table-hover">
+            <tbody>
+                {% for project in project_data %}
+                <tr>
+                    <th scope="row">{{project.1}}</th>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th scope="row">Number of Projects: {{number_of_projects}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-6">
+        <h2 style="color: #007bff; background-color: #ffffff;" class="alert text-center">Users</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">User Password</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_data %}
+                <tr>
+                    <td scope="row">{{user.1}}</td>
+                    <td scope="row">{{user.2}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <th>Number of Users: {{number_of_users}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

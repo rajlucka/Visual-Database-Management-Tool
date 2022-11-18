@@ -1,0 +1,56 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-12">
+        <!-- ADD PROEJCTS VIEW TABLE HERE -->
+        {% if project_data %}
+        <table class="table table-hover table">
+            <thead>
+              <tr>
+                <th scope="col">Project ID</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Project Description</th>
+                <th scope="col">
+                  {% if access_level == '5' %}
+                  <a style="background-color:#ececec; color: #00adee; border-color: #00adee;" href="{% url 'add_project' %}" 
+                  class="btn btn-success">Add Project</a>
+                  {% endif %}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for proj in project_data %}
+              <tr>
+                <th scope="row">{{proj.0}}</th>
+                <td><a href="{% url 'project_template' proj.0 %}">{{proj.1}}</a></td>
+                <td>{{proj.2}}</td>
+                <td>
+
+                  <form action="{% url 'delete_project' proj.0 %}" method="POST">
+                    {% csrf_token %}
+                    {% if access_level == '5' %}
+                      <input style="background-color: #00adee; color:#ffffff; border-color: #00adee;" type="submit" value="Delete"
+                       class="btn btn-danger d-inline" onclick="return confirm('Are you sure you want to delete record?')">
+                    {% endif %}
+                    {% if access_level == '5' or access_level == '3' %}
+                      <a style="background-color: #ffffff; color:#00adee; border-color: #00adee;"
+                       href="{% url 'update_project' proj.0 %}" class="btn btn-warning">Edit</a>
+                    {% endif %}
+                  </form>                  
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+        <h1 class="text-center alert alert-danger">No Records Found
+          {% if access_level == '5' %}
+            <a href="{% url 'add_project' %}" class="btn btn-success">Add Project</a>
+          {% endif %}
+        </h1>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

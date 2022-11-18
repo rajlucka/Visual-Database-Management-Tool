@@ -1,0 +1,47 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-5">
+        <h2 class="text-center alert alert-primary">Add Template</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="template_project">Project Name</label>
+              <select class="form-control" id="name_project" name="name_project">
+                {% for proj in projects %}
+                  <option>{{proj.1}}</option>
+                {% endfor %}
+              </select>
+              <label for="template_name">Template Name</label>
+              <input type="text" class="form-control" id="template_name" aria-describedby="emailHelp" name="template_name">
+            </div>
+            <div class="form-group">
+              <label for="template_description">Template Description</label>
+              <input type="text" class="form-control" id="template_description" name="template_description">
+            </div>
+            <div class="form-group">
+              <label for="template_file">Template File</label>
+              <input type="file" class="form-control" id="template_file" name="template_file">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a href="{% url 'template' %}" class="btn btn-info"> Back </a>
+        </form>
+    </div>
+  </div>
+</body>
+</html>
+{% endblock content %}
+
+
+<!-- <label for="template_project">Project Name</label>
+<select class="form-control" id="name_project" name="name_project">
+  {% for proj in projects %}
+    <option>{{proj.1}}</option>
+  {% endfor %}
+</select> -->
+
+<!-- <div class="form-group">
+  <label for="template_file">Template File</label>
+  <input type="file" class="form-control" id="template_file" name="template_file">
+</div>  -->

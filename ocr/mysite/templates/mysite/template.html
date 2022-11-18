@@ -1,0 +1,51 @@
+{% extends 'mysite/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-11">
+        <!-- ADD PROEJCTS VIEW TABLE HERE -->
+        {% if template_data %}
+        <table class="table table-hover table">
+            <thead>
+              <tr>
+                <th scope="col">Template ID</th>
+                <th scope="col">Template Name</th>
+                <th scope="col">Template Description</th>
+                <th scope="col">
+                  {% if access_level == '3' or access_level == '5' or access_level == '2' %}
+                  <a  style="background-color:#ececec; color: #00adee; border-color: #00adee;" href="{% url 'add_template' %}" class="btn btn-success">Add Template</a>
+                  {% endif %}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for template in template_data %}
+              <tr>
+                <th scope="row">{{template.0}}</th>
+                <td><a href="{% url 'display_template_file' template.0 %}">{{template.1}}</a></td>
+                <td>{{template.2}}</td>
+                <td>
+
+                  <form action="{% url 'delete_template' template.0 %}" method="POST">
+                    {% csrf_token %}
+                    {% if access_level == '3' or access_level == '5' or access_level == '2' %}
+                      <input style="background-color: #00adee; color:#ffffff; border-color: #00adee;" type="submit" value="Delete" class="btn btn-danger d-inline" onclick="return confirm('Are you sure you want to delete record?')">
+                    {% endif %}
+                    {% if access_level == '3' or access_level == '5' or access_level == '2' %}
+                      <a style="background-color: #ffffff; color:#00adee; border-color: #00adee;" href="{% url 'update_template' template.0 %}" class="btn btn-warning">Edit</a>
+                    {% endif %}
+                  </form>                  
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <h1 class="text-center alert alert-danger">No Records Found
+            {% if access_level == '3' or access_level == '5' or access_level == '2' %}
+            <a href="{% url 'add_template' %}" class="btn btn-success">Add Template</a>
+            {% endif %}</h1>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

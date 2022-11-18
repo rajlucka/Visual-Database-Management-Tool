@@ -1,0 +1,205 @@
+<div id="accordian">
+  <ul class="show-dropdown main-navbar">
+      <div class="selector-active"><div class="top"></div><div class="bottom"></div></div>
+      <li>
+          <a href="javascript:void(0);"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+      </li>
+      <li class="active">
+          <a href="javascript:void(0);"><i class="far fa-address-book"></i>Address Book</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-clone"></i>Components</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-calendar-alt"></i>Calendar</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-chart-bar"></i>Charts</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-copy"></i>Documents</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-bookmark"></i>Bookmarks</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-envelope"></i>Mail</a>
+      </li>
+      <li>
+          <a href="javascript:void(0);"><i class="far fa-heart"></i>Favorite</a>
+      </li>
+  </ul>
+</div>
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body{
+	font-family: 'Roboto', sans-serif;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+i {
+	margin-right: 10px;
+}
+h2{
+	margin:0px;
+}
+
+h6{
+	margin:0px;
+	color:#777;
+}
+
+#accordian {
+	background: #5161ce;
+	width: 250px;
+	padding: 10px;
+	float: left;
+	height: 100vh;
+	overflow-x: hidden;
+	position: relative;
+	padding-right: 0px;
+}
+.main-navbar{
+	position: relative;
+}
+
+#accordian li {
+	list-style-type: none;
+}
+
+#accordian ul li a{
+	color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 45px;
+    display: block;
+    padding: 0px 20px;
+    transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+
+#accordian>ul>li.active>a{
+	color: #5161ce;
+	background-color: transparent;
+	transition: all 0.7s;
+}
+
+
+#accordian a:not(:only-child):after {
+	content: "\f105";
+	position: absolute;
+	right: 20px;
+	top: 10%;
+	font-size: 14px;
+	font-family: "Font Awesome 5 Free";
+	display: inline-block;
+	padding-right: 3px;
+	vertical-align: middle;
+	font-weight: 900;
+	transition: 0.5s;
+}
+
+#accordian .active>a:not(:only-child):after {
+	transform: rotate(90deg);
+}
+.selector-active{
+	width: 100%;
+	display:inline-block;
+	position:absolute;
+	height: 37px;
+	top: 0px;
+	left: 0px;
+	transition-duration:0.6s;
+	transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	background-color: #fff;
+	border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+.selector-active .top,
+.selector-active .bottom{
+	position: absolute;
+	width: 25px;
+	height: 25px;
+	background-color: #fff;
+	right: 0;
+}
+.selector-active .top{
+	top: -25px;
+}
+.selector-active .bottom{
+	bottom: -25px;
+}
+.selector-active .top:before,
+.selector-active .bottom:before{
+	content: '';
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #5161ce;
+}
+.selector-active .top:before{
+	left: -25px;
+	top: -25px;
+}
+.selector-active .bottom:before{
+	bottom: -25px;
+	left: -25px;
+}
+</style>
+
+
+<script>
+  // ---------vertical-menu with-inner-menu-active-animation-----------
+
+var tabsVerticalInner = $('#accordian');
+var selectorVerticalInner = $('#accordian').find('li').length;
+var activeItemVerticalInner = tabsVerticalInner.find('.active');
+var activeWidthVerticalHeight = activeItemVerticalInner.innerHeight();
+var activeWidthVerticalWidth = activeItemVerticalInner.innerWidth();
+var itemPosVerticalTop = activeItemVerticalInner.position();
+var itemPosVerticalLeft = activeItemVerticalInner.position();
+$(".selector-active").css({
+	"top":itemPosVerticalTop.top + "px", 
+	"left":itemPosVerticalLeft.left + "px",
+	"height": activeWidthVerticalHeight + "px",
+	"width": activeWidthVerticalWidth + "px"
+});
+$("#accordian").on("click","li",function(e){
+	$('#accordian ul li').removeClass("active");
+	$(this).addClass('active');
+	var activeWidthVerticalHeight = $(this).innerHeight();
+	var activeWidthVerticalWidth = $(this).innerWidth();
+	var itemPosVerticalTop = $(this).position();
+	var itemPosVerticalLeft = $(this).position();
+	$(".selector-active").css({
+		"top":itemPosVerticalTop.top + "px", 
+		"left":itemPosVerticalLeft.left + "px",
+		"height": activeWidthVerticalHeight + "px",
+		"width": activeWidthVerticalWidth + "px"
+	});
+});
+
+
+// --------------add active class-on another-page move----------
+jQuery(document).ready(function($){
+  // Get current path and find target link
+  var path = window.location.pathname.split("/").pop();
+
+  // Account for home page with empty path
+  if ( path == '' ) {
+    path = 'index.html';
+  }
+
+  var target = $('#accordian ul li a[href="'+path+'"]');
+  // Add active class to target link
+  target.parent().addClass('active');
+});
+
+</script>
